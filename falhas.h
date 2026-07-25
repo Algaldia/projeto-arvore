@@ -1,3 +1,8 @@
+#ifndef FALHAS_H
+#define FALHAS_H
+
+#include <stdio.h>
+
 typedef struct NO_DEC {
     int id;
     char pergunta[200];
@@ -13,10 +18,17 @@ typedef struct { NO_DEC *no; int profundidade; } Estado;
 NO_DEC* criarNoDecisao(int id, char *pergunta, int folha);
 
 void inserirFilho(NO_DEC *pai, NO_DEC *filho, int respSim);
-void navegarDiagnostico(NO_DEC *raiz);
-void exibirArvoreCompleta(NO_DEC *raiz, int nivel);
 int contarDiagnosticos(NO_DEC *raiz);
 int contarPerguntas(NO_DEC *raiz);
+void navegarDiagnostico(NO_DEC *raiz);
+void exibirArvoreCompleta(NO_DEC *raiz, int nivel);
+int calcularProfundidadeMax(NO_DEC *raiz);
+NO_DEC* buscarPorID(NO_DEC *raiz, int id);
+
 void salvarArvoreArquivo(NO_DEC *raiz, FILE *f);
 NO_DEC* carregarArvoreArquivo(FILE *f);
 void registrarSessao(int idDiagnostico, char *data, FILE *f);
+
+void liberarArvoreDecisao(NO_DEC *raiz);
+
+#endif
