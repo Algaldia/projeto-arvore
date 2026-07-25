@@ -24,13 +24,6 @@ void libera_NO(struct NO* no){
     no = NULL;
 }
 
-void libera_ArvBin(ArvBin* raiz){
-    if(raiz == NULL)
-        return;
-    libera_NO(*raiz);//libera cada nó
-    free(raiz);//libera a raiz
-}
-
 int insere_ArvBin(ArvBin* raiz, int valor){
     if(raiz == NULL)
         return 0;
@@ -135,45 +128,6 @@ int totalNO_ArvBin(ArvBin *raiz){
     return(alt_esq + alt_dir + 1);
 }
 
-int altura_ArvBin(ArvBin *raiz){
-    if (raiz == NULL)
-        return 0;
-    if (*raiz == NULL)
-        return 0;
-    int alt_esq = altura_ArvBin(&((*raiz)->esq));
-    int alt_dir = altura_ArvBin(&((*raiz)->dir));
-    if (alt_esq > alt_dir)
-        return (alt_esq + 1);
-    else
-        return(alt_dir + 1);
-}
-
-int consulta_ArvBin(ArvBin *raiz, int valor){
-    if(raiz == NULL)
-        return 0;
-    struct NO* atual = *raiz;
-    while(atual != NULL){
-        if(valor == atual->info){
-            return 1;
-        }
-        if(valor > atual->info)
-            atual = atual->dir;
-        else
-            atual = atual->esq;
-    }
-    return 0;
-}
-
-void preOrdem_ArvBin(ArvBin *raiz){
-    if(raiz == NULL)
-        return;
-    if(*raiz != NULL){
-        printf("%d\n",(*raiz)->info);
-        preOrdem_ArvBin(&((*raiz)->esq));
-        preOrdem_ArvBin(&((*raiz)->dir));
-    }
-}
-
 void emOrdem_ArvBin(ArvBin *raiz){
     if(raiz == NULL)
         return;
@@ -195,8 +149,21 @@ void posOrdem_ArvBin(ArvBin *raiz){
 }
 
 
-
-
+int consulta_ArvBin(ArvBin *raiz, int valor){
+    if(raiz == NULL)
+        return 0;
+    struct NO* atual = *raiz;
+    while(atual != NULL){
+        if(valor == atual->info){
+            return 1;
+        }
+        if(valor > atual->info)
+            atual = atual->dir;
+        else
+            atual = atual->esq;
+    }
+    return 0;
+}
 
 int totalUmFilho_ArvBin(ArvBin *raiz){
     if (raiz == NULL)
@@ -207,6 +174,9 @@ int totalUmFilho_ArvBin(ArvBin *raiz){
         return 1;
     }
     if ((*raiz)->dir==NULL && (*raiz)->esq!=NULL) {
+        return 1;
+    }
+    if ((*raiz)->dir!=NULL && (*raiz)->esq!=NULL) {
         return 1;
     }
     return totalUmFilho_ArvBin(&((*raiz)->dir)) + totalUmFilho_ArvBin(&((*raiz)->esq));
@@ -232,4 +202,36 @@ int totalFolhas_ArvBin(ArvBin *raiz) {
         return 1;
 
     return totalFolhas_ArvBin(&((*raiz)->esq)) + totalFolhas_ArvBin(&(*raiz)->dir);
+}
+
+
+
+void preOrdem_ArvBin(ArvBin *raiz){
+    if(raiz == NULL)
+        return;
+    if(*raiz != NULL){
+        printf("%d\n",(*raiz)->info);
+        preOrdem_ArvBin(&((*raiz)->esq));
+        preOrdem_ArvBin(&((*raiz)->dir));
+    }
+}
+
+void libera_ArvBin(ArvBin* raiz){
+    if(raiz == NULL)
+        return;
+    libera_NO(*raiz);//libera cada nó
+    free(raiz);//libera a raiz
+}
+
+int altura_ArvBin(ArvBin *raiz){
+    if (raiz == NULL)
+        return 0;
+    if (*raiz == NULL)
+        return 0;
+    int alt_esq = altura_ArvBin(&((*raiz)->esq));
+    int alt_dir = altura_ArvBin(&((*raiz)->dir));
+    if (alt_esq > alt_dir)
+        return (alt_esq + 1);
+    else
+        return(alt_dir + 1);
 }

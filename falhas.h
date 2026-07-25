@@ -13,7 +13,10 @@ typedef struct NO_DEC {
     struct NO_DEC *nao;
 } NO_DEC;
 
-typedef struct { NO_DEC *no; int profundidade; } Estado;
+typedef struct {
+    NO_DEC *no;
+    int profundidade;
+} Estado;
 
 NO_DEC* criarNoDecisao(int id, char *pergunta, int folha);
 
@@ -30,5 +33,6 @@ NO_DEC* carregarArvoreArquivo(FILE *f);
 void registrarSessao(int idDiagnostico, char *data, FILE *f);
 
 void liberarArvoreDecisao(NO_DEC *raiz);
+void libera_NO( NO_DEC* no);
 
 #endif

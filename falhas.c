@@ -59,8 +59,63 @@ int contarPerguntas(NO_DEC *raiz){
     return contarPerguntas(raiz->sim) + contarPerguntas(raiz->nao) + 1;
 }
 
-void navegarDiagnostico(NO_DEC *raiz){}
-void exibirArvoreCompleta(NO_DEC *raiz, int nivel){}
-void salvarArvoreArquivo(NO_DEC *raiz){}
-NO_DEC* carregarArvoreArquivo(FILE *f){}
-void registrarSessao(int idDiagnostico, char *data, FILE *f){}
+void salvarArvoreArquivo(NO_DEC *raiz, FILE *f) {
+    if (raiz == NULL) {
+        return;
+    }
+
+    fprintf(f, "%d", raiz->id);
+    fprintf(f, "%s", raiz->pergunta);
+    fprintf(f, "%s", raiz->referencia);
+    fprintf(f, "%d", raiz->ehFolha);
+    fprintf(f, "%s", raiz->solucao);
+
+    salvarArvoreArquivo(raiz->sim, f);
+    salvarArvoreArquivo(raiz->nao, f);
+}
+
+int calcularprofundidadeMax(NO_DEC *raiz){
+    if (raiz == NULL)
+        return 0;
+    /*if (*raiz == NULL)
+        return 0;*/
+    int alt_esq = calcularprofundidadeMax(raiz->sim);
+    int alt_dir = calcularprofundidadeMax(raiz->nao);
+
+    if (alt_esq > alt_dir)
+        return (alt_esq + 1);
+    else
+        return(alt_dir + 1);
+}
+
+void liberarArvoreDecisao(NO_DEC* raiz){
+    if(raiz == NULL)
+        return;
+    libera_NO(raiz);//libera cada nó
+    free(raiz);//libera a raiz
+}
+void libera_NO( NO_DEC* no){
+    if(no == NULL)
+        return;
+    libera_NO(no->sim);
+    libera_NO(no->nao);
+    free(no);
+    no = NULL;
+}
+
+
+void navegarDiagnostico(NO_DEC *raiz) {
+
+}
+void exibirArvoreCompleta(NO_DEC *raiz, int nivel) {
+
+}
+NO_DEC* carregarArvoreArquivo(FILE *f) {
+
+}
+void registrarSessao(int idDiagnostico, char *data, FILE *f) {
+
+}
+NO_DEC* buscarPorID(NO_DEC *raiz, int id) {
+
+}
