@@ -74,7 +74,7 @@ void salvarArvoreArquivo(NO_DEC *raiz, FILE *f) {
     salvarArvoreArquivo(raiz->nao, f);
 }
 
-int calcularprofundidadeMax(NO_DEC *raiz){
+int calcularProfundidadeMax(NO_DEC *raiz){
     if (raiz == NULL)
         return 0;
     /*if (*raiz == NULL)
@@ -92,8 +92,8 @@ void liberarArvoreDecisao(NO_DEC* raiz){
     if(raiz == NULL)
         return;
     libera_NO(raiz);//libera cada nó
-    free(raiz);//libera a raiz
 }
+
 void libera_NO( NO_DEC* no){
     if(no == NULL)
         return;
@@ -105,17 +105,62 @@ void libera_NO( NO_DEC* no){
 
 
 void navegarDiagnostico(NO_DEC *raiz) {
+    if(raiz == NULL){
+        printf("Árvore vazia.\n");
+        return;
+    }
 
+    NO_DEC *atual = raiz;
+    char resposta;
+
+    while(atual != NULL && !atual->ehFolha){
+
+        printf("\n%s (S/N): ", atual->pergunta);
+        scanf(" %c", &resposta);
+
+        resposta = toupper(resposta);
+
+        while(resposta != 'S' && resposta != 'N'){
+            printf("Resposta inválida! Digite S ou N: ");
+            scanf(" %c", &resposta);
+            resposta = toupper(resposta);
+        }
+
+        if(resposta == 'S')
+            atual = atual->sim;
+        else
+            atual = atual->nao;
+    }
+
+    if(atual == NULL){
+        printf("\nDiagnóstico não encontrado.\n");
+        return;
+    }
+
+    printf("\n=============================\n");
+    printf("DIAGNÓSTICO\n");
+    printf("=============================\n");
+    printf("%s\n", atual->pergunta);
+
+    printf("\nSolução:\n");
+    printf("%s\n", atual->solucao);
+
+    printf("\nReferência:\n");
+    printf("%s\n", atual->referencia);
 }
+
 void exibirArvoreCompleta(NO_DEC *raiz, int nivel) {
 
 }
+
 NO_DEC* carregarArvoreArquivo(FILE *f) {
 
 }
+
 void registrarSessao(int idDiagnostico, char *data, FILE *f) {
 
 }
+
 NO_DEC* buscarPorID(NO_DEC *raiz, int id) {
 
 }
