@@ -48,6 +48,6 @@ int main() {
         }
     } while (opcao != 0);
     salvarArvoreArquivo(raiz);
-    libera_ArvBin(raiz);
+    liberarArvoreDecisao(raiz);
     return 0;
 }
