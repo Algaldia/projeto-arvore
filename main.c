@@ -48,7 +48,7 @@ int main() {
                 printf("Opção inválida.\n");
         }
     } while (opcao != 0);
-    //salvarArvoreArquivo(raiz);
+    salvarArvoreArquivo(raiz);
     liberarArvoreDecisao(raiz);
     return 0;
 }

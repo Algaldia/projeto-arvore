@@ -103,6 +103,7 @@ void libera_NO( NO_DEC* no){
     no = NULL;
 }
 
+void exibirArvoreCompleta(NO_DEC *raiz, int nivel){
 
 void navegarDiagnostico(NO_DEC *raiz) {
     if(raiz == NULL){
@@ -151,10 +152,32 @@ void navegarDiagnostico(NO_DEC *raiz) {
 
 void exibirArvoreCompleta(NO_DEC *raiz, int nivel) {
 
+void registrarSessao(int idDiagnostico, char *data, FILE *f){
+
+    if(f == NULL)
+        return;
+
+    fprintf(f,"%d %s\n", idDiagnostico, data);
 }
 
 NO_DEC* carregarArvoreArquivo(FILE *f) {
 
+NO_DEC* buscarPorID(NO_DEC *raiz, int id){
+
+    if(raiz == NULL)
+        return NULL;
+
+    if(raiz->id == id)
+        return raiz;
+
+    NO_DEC *aux;
+
+    aux = buscarPorID(raiz->sim, id);
+
+    if(aux != NULL)
+        return aux;
+
+    return buscarPorID(raiz->nao, id);
 }
 
 void registrarSessao(int idDiagnostico, char *data, FILE *f) {
